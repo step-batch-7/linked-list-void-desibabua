@@ -128,3 +128,31 @@ void test_insert_in_middle(void)
 
   clear_list(list);
 }
+
+void test_add_unique(void)
+{
+  describe("add_unique_list");
+
+  List_ptr list = create_list();
+
+  Element element_1 = malloc(sizeof(int));
+  *(int *)element_1 = 4;
+  Element element_2 = malloc(sizeof(int));
+  *(int *)element_2 = 3;
+
+  Element exp_values[] = {element_1, element_2};
+
+  Status act_status = add_unique(list, element_1, &is_int_ptr_equal);
+  Status status = assert(list, 1, exp_values, act_status, Success, &is_int_ptr_equal);
+  print_message(status, "should always add element in an empty list");
+
+  act_status = add_unique(list, element_2, &is_int_ptr_equal);
+  status = assert(list, 2, exp_values, act_status, Success, &is_int_ptr_equal);
+  print_message(status, "should add element in list if not present");
+
+  act_status = add_unique(list, element_2, &is_int_ptr_equal);
+  status = assert(list, 2, exp_values, act_status, Failure, &is_int_ptr_equal);
+  print_message(status, "should not add element in list if not present");
+
+  clear_list(list);
+}

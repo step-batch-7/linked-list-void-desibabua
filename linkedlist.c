@@ -19,6 +19,22 @@ List_ptr create_list(void)
   return list;
 }
 
+Status clear_list(List_ptr list) {
+  Node_ptr p_walk = list->first;
+  Node_ptr node_to_remove;
+
+  while (p_walk != NULL) {
+    node_to_remove = p_walk;
+    p_walk = p_walk->next;
+    free(node_to_remove);
+  }
+
+  list->first = NULL;
+  list->last = NULL;
+  list->length = 0;
+  return Success;
+}
+
 Status add_to_list(List_ptr list,Element element) 
 {
   return insert_at(list, element, list->length);
@@ -65,18 +81,22 @@ Status insert_at(List_ptr list,Element element, int position)
   return Success;
 }
 
-Status clear_list(List_ptr list) {
+Status is_in_list(List_ptr list,Element element, Matcher matcher) {
   Node_ptr p_walk = list->first;
-  Node_ptr node_to_remove;
-
   while (p_walk != NULL) {
-    node_to_remove = p_walk;
+    if((*matcher)(p_walk->element, element)) {
+      return Success;
+    }
     p_walk = p_walk->next;
-    free(node_to_remove);
   }
+  return Failure;
+}
 
-  list->first = NULL;
-  list->last = NULL;
-  list->length = 0;
-  return Success;
+Status add_unique(List_ptr list, Element element, Matcher matcher) {
+  Node_ptr node;
+
+  if (!is_in_list(list, element, matcher)) {
+    return add_to_list(list, element);
+  }
+  return Failure;
 }
