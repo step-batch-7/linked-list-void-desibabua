@@ -6,7 +6,7 @@
 
 typedef Status (*comparer)(void *, void *);
 
-Status assert_void_linked_list(List_ptr list, int length, void *exp_list_values, Status act_status, Status exp_status, comparer);
+Status assert(List_ptr list, int length, void *exp_list_values, Status act_status, Status exp_status, comparer);
 
 Status is_int_ptr_equal(void *num1, void *num2);
 Status is_int_equal(int num1, int num2);

@@ -3,6 +3,7 @@
 
 #include "assert.h"
 
-List_ptr test_create_list(void);
+void test_create_list(void);
+void test_add_to_list(void);
 
 #endif
