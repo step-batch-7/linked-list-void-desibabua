@@ -58,3 +58,36 @@ void test_add_to_start(void)
   status = assert(list, 2, exp_values_2, act_status, Success, &is_int_ptr_equal);
   print_message(status, "should add element at the start in a non - empty list");
 }
+
+void test_insert_in_middle(void)
+{
+  describe("add_to_middle");
+
+  List_ptr list = create_list();
+
+  Element element_1 = malloc(sizeof(int));
+  *(int *)element_1 = 3;
+  Element element_2 = malloc(sizeof(int));
+  *(int *)element_2 = 5;
+  Element element_3 = malloc(sizeof(int));
+  *(int *)element_3 = 4;
+
+  Status act_status = insert_at(list, element_1, -1);
+  Element exp_values_1[] = {};
+
+  Status status = assert(list, 0, exp_values_1, act_status, Failure, &is_int_ptr_equal);
+  print_message(status, "should not add for an invalid position");
+
+
+  status = assert(list, 0, exp_values_1, act_status, Failure, &is_int_ptr_equal);
+  print_message(status, "should not add for a position greater than length");
+
+  add_to_list(list, element_1);
+  add_to_list(list, element_2);
+  act_status = insert_at(list, element_3, 1);
+
+  Element exp_values_2[] = {element_1, element_3, element_2};
+  
+  status = assert(list, 3, exp_values_2, act_status, Success, &is_int_ptr_equal);
+  print_message(status, "should add element in between two elements of list");
+}
