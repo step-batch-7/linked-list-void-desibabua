@@ -5,5 +5,6 @@
 
 void test_create_list(void);
 void test_add_to_list(void);
+void test_add_to_start(void);
 
 #endif
