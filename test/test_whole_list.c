@@ -8,8 +8,10 @@ int main(void)
   test_add_to_list();
   test_add_to_start();
   test_insert_in_middle();
-  
+
   test_add_unique();
+
+  test_remove_from_start();
 
   return 0;
 }

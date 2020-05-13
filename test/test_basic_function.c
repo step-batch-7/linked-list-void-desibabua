@@ -156,3 +156,36 @@ void test_add_unique(void)
 
   clear_list(list);
 }
+
+void test_remove_from_start(void)
+{
+  describe("remove_from_start");
+
+  List_ptr list = create_list();
+
+  Element element_1 = malloc(sizeof(int));
+  *(int *)element_1 = 4;
+  Element element_2 = malloc(sizeof(int));
+  *(int *)element_2 = 3;
+
+  Element exp_values[] = { element_2 };
+
+  Element removed_element = remove_from_start(list);
+  Status status = assert(list, 0, exp_values, Success, Success, &is_int_ptr_equal);
+  print_message(status, "should not remove the element from an list");
+
+  status = assert_is_eq_ptr(removed_element, NULL);
+  print_message(status, "should return null when asked to remove from empty list");
+
+  add_to_list(list, element_1);
+  add_to_list(list, element_2);
+
+  removed_element = remove_from_start(list);
+  status = assert(list, 1, exp_values, Success, Success, &is_int_ptr_equal);
+  print_message(status, "should remove the element from list");
+
+  status = is_int_ptr_equal(removed_element, element_1);
+  print_message(status, "function should return the removed element");
+
+  clear_list(list);
+}

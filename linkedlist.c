@@ -100,3 +100,50 @@ Status add_unique(List_ptr list, Element element, Matcher matcher) {
   }
   return Failure;
 }
+
+Element remove_from_start(List_ptr list) 
+{
+  return remove_at(list, 0);
+}
+
+Element remove_from_end(List_ptr list) 
+{
+  return remove_at(list, list->length - 1);
+}
+
+Element remove_at(List_ptr list, int position) 
+{
+  if(position >= list->length || position < 0)
+  {
+    return NULL;
+  }
+
+  Prev_Current_Pair node_ptrs;
+  node_ptrs.prev = NULL;
+  node_ptrs.current = list->first;
+
+  while(position > 0){
+    node_ptrs.prev = node_ptrs.current;
+    node_ptrs.current = node_ptrs.current->next;
+    position--;
+  }
+
+  Node_ptr node_to_remove = node_ptrs.current;
+  Node_ptr *ptr_to_set = &list->first;
+
+  if (node_ptrs.prev != NULL)
+  {
+    ptr_to_set = &node_ptrs.prev->next;
+  }
+
+  *ptr_to_set = node_ptrs.current->next;
+
+  if(node_ptrs.current->next==NULL){
+    list->last = node_ptrs.prev;
+  }
+  
+  list->length--;
+  Element removed_element = node_to_remove->element;
+  free(node_to_remove);
+  return removed_element;
+}
