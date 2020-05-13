@@ -187,5 +187,11 @@ void test_remove_from_start(void)
   status = is_int_ptr_equal(removed_element, element_1);
   print_message(status, "function should return the removed element");
 
+  removed_element = remove_from_start(list);
+  status &= is_int_ptr_equal(list->first, NULL);
+  status &= is_int_ptr_equal(list->last, NULL);
+  status &= is_int_equal(list->length, 0);
+  print_message(status, "should reset all the values when list has nothing left");
+
   clear_list(list);
 }
