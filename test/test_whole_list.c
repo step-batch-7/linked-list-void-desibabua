@@ -12,6 +12,7 @@ int main(void)
   test_add_unique();
 
   test_remove_from_start();
+  test_remove_from_end();
 
   return 0;
 }
