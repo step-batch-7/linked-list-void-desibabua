@@ -13,6 +13,7 @@ int main(void)
 
   test_remove_from_start();
   test_remove_from_end();
+  test_remove_at();
 
   return 0;
 }

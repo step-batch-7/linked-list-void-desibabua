@@ -14,5 +14,6 @@ void test_add_unique(void);
 
 void test_remove_from_start(void);
 void test_remove_from_end(void);
+void test_remove_at(void);
 
 #endif

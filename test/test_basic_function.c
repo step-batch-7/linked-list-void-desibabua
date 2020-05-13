@@ -236,3 +236,48 @@ void test_remove_from_end(void)
 
   clear_list(list);
 }
+
+void test_remove_at(void)
+{
+  describe("remove_at");
+
+  List_ptr list = create_list();
+
+  Element element_1 = malloc(sizeof(int));
+  *(int *)element_1 = 4;
+  Element element_2 = malloc(sizeof(int));
+  *(int *)element_2 = 3;
+  Element element_3 = malloc(sizeof(int));
+  *(int *)element_3 = 5;
+
+  Element non_changed_values[] = {element_1, element_2, element_3};
+  Element exp_values[] = {element_1, element_3};
+
+  add_to_list(list, element_1);
+  add_to_list(list, element_2);
+  add_to_list(list, element_3);
+
+  Element removed_element = remove_at(list, -1);
+  Status status = assert(list, 3, non_changed_values, Success, Success, &is_int_ptr_equal);
+  print_message(status, "should not remove the element from an list when position is invalid");
+
+  status = assert_is_eq_ptr(removed_element, NULL);
+  print_message(status, "should return null when asked to remove invalid position in list");
+
+  removed_element = remove_at(list, 3);
+  status = assert(list, 3, non_changed_values, Success, Success, &is_int_ptr_equal);
+  print_message(status, "should not remove the element position is greater than or equal length");
+
+  status = assert_is_eq_ptr(removed_element, NULL);
+  print_message(status, "should return null when asked to do so");
+
+  removed_element = remove_at(list, 1);
+
+  status = assert(list, 2, exp_values, Success, Success, &is_int_ptr_equal);
+  print_message(status, "should remove from middle of elements in list");
+
+  status = assert_is_eq_ptr(removed_element, element_2);
+  print_message(status, "should return element which was removed");
+  
+  clear_list(list);
+}
