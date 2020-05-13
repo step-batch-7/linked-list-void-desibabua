@@ -64,3 +64,19 @@ Status insert_at(List_ptr list,Element element, int position)
   list->length++;
   return Success;
 }
+
+Status clear_list(List_ptr list) {
+  Node_ptr p_walk = list->first;
+  Node_ptr node_to_remove;
+
+  while (p_walk != NULL) {
+    node_to_remove = p_walk;
+    p_walk = p_walk->next;
+    free(node_to_remove);
+  }
+
+  list->first = NULL;
+  list->last = NULL;
+  list->length = 0;
+  return Success;
+}
