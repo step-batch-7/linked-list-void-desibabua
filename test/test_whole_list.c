@@ -20,5 +20,7 @@ int main(void)
 
   test_reverse_list();
 
+  test_map();
+
   return 0;
 }

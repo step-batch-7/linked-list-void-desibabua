@@ -189,3 +189,17 @@ List_ptr reverse(List_ptr list)
   }
   return reversed_list;
 }
+
+List_ptr map(List_ptr list, Mapper mapper)
+{
+  List_ptr mapped_list = create_list();
+  Node_ptr p_walk = list->first;
+  Element element;
+  while (p_walk != NULL)
+  {
+    element = (*mapper)(p_walk->element);
+    add_to_list(mapped_list, element);
+    p_walk = p_walk->next;
+  }
+  return mapped_list;
+}
