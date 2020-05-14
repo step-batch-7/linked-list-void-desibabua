@@ -85,8 +85,51 @@ void test_map(void)
   print_message(status, "shouldn't do anything to the given list");
 
   status = assert(mapped_list, 3, exp_values, Success, Success, &is_int_ptr_equal);
-  print_message(status, "should return an mapped list of actual list");
+  print_message(status, "should return a mapped list of actual list");
 
   clear_list(list);
   clear_list(mapped_list);
+}
+
+Status is_even(Element element)
+{
+  return *(int *)element % 2 == 0;
+}
+
+void test_filter(void)
+{
+  describe("filter_list");
+
+  List_ptr list = create_list();
+
+  Element element_1 = malloc(sizeof(int));
+  *(int *)element_1 = 4;
+  Element element_2 = malloc(sizeof(int));
+  *(int *)element_2 = 3;
+  Element element_3 = malloc(sizeof(int));
+  *(int *)element_3 = 6;
+
+  Element act_values[] = {element_1, element_2, element_3};
+  Element exp_values[] = {element_1, element_3};
+
+  List_ptr filtered_list = filter(list, &is_even);
+  Status status = assert(list, 0, act_values, Success, Success, &is_int_ptr_equal);
+  print_message(status, "shouldn't do anything to an empty list");
+
+  status = assert(filtered_list, 0, exp_values, Success, Success, &is_int_ptr_equal);
+  print_message(status, "should return an empty list when the actual list was empty");
+
+  add_to_list(list, element_1);
+  add_to_list(list, element_2);
+  add_to_list(list, element_3);
+
+  filtered_list = filter(list, &is_even);
+  status = assert(list, 3, act_values, Success, Success, &is_int_ptr_equal);
+  print_message(status, "shouldn't do anything to the given list");
+
+  status = assert(filtered_list, 2, exp_values, Success, Success, &is_int_ptr_equal);
+  print_message(status, "should return a filtered list of actual list");
+
+  clear_list(list);
+  clear_list(filtered_list);
 }

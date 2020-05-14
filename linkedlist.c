@@ -211,8 +211,10 @@ List_ptr filter(List_ptr list, Predicate predicate)
   Status status;
   while (p_walk != NULL)
   {
-    status = (*predicate)(p_walk->element);
-    add_to_list(filtered_list, p_walk->element);
+    if((*predicate)(p_walk->element))
+    {
+      add_to_list(filtered_list, p_walk->element);
+    }
     p_walk = p_walk->next;
   }
   return filtered_list;

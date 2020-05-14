@@ -21,6 +21,7 @@ int main(void)
   test_reverse_list();
 
   test_map();
+  test_filter();
 
   return 0;
 }
