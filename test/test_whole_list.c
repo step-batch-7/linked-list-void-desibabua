@@ -16,6 +16,7 @@ int main(void)
   test_remove_at();
 
   test_remove_first_occurrance();
+  test_remove_all_occurrances();
 
   return 0;
 }

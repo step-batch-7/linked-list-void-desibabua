@@ -17,5 +17,6 @@ void test_remove_from_end(void);
 void test_remove_at(void);
 
 void test_remove_first_occurrance(void);
+void test_remove_all_occurrances(void);
 
 #endif
