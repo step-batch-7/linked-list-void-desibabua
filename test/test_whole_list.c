@@ -22,6 +22,7 @@ int main(void)
 
   test_map();
   test_filter();
+  test_for_each();
 
   return 0;
 }

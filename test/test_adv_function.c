@@ -133,3 +133,45 @@ void test_filter(void)
   clear_list(list);
   clear_list(filtered_list);
 }
+
+void increment(Element element)
+{
+  *(int *)element += 1;
+}
+
+void test_for_each(void)
+{
+  describe("for_each");
+
+  List_ptr list = create_list();
+
+  Element element_1 = malloc(sizeof(int));
+  *(int *)element_1 = 4;
+  Element element_2 = malloc(sizeof(int));
+  *(int *)element_2 = 3;
+  Element element_3 = malloc(sizeof(int));
+  *(int *)element_3 = 5;
+
+  Element exp_1 = malloc(sizeof(int));
+  *(int *)exp_1 = 5;
+  Element exp_2 = malloc(sizeof(int));
+  *(int *)exp_2 = 4;
+  Element exp_3 = malloc(sizeof(int));
+  *(int *)exp_3 = 6;
+
+  Element exp_values[] = {exp_1, exp_2, exp_3};
+
+  forEach(list, &increment);
+  Status status = assert(list, 0, exp_values, Success, Success, &is_int_ptr_equal);
+  print_message(status, "shouldn't do anything to an empty list");
+
+  add_to_list(list, element_1);
+  add_to_list(list, element_2);
+  add_to_list(list, element_3);
+
+  forEach(list, &increment);
+  status = assert(list, 3, exp_values, Success, Success, &is_int_ptr_equal);
+  print_message(status, "should process each element of list");
+
+  clear_list(list);
+}
