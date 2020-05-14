@@ -147,3 +147,19 @@ Element remove_at(List_ptr list, int position)
   free(node_to_remove);
   return removed_element;
 }
+
+Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher) {
+  Node_ptr p_walk = list->first;
+  int position = 0;
+
+  if(!is_in_list(list,element,matcher)) {
+    return NULL;
+  }
+  while (!(*matcher)(p_walk->element ,element))
+  {
+    p_walk = p_walk->next;
+    position++;
+  }
+
+  return remove_at(list, position);
+}

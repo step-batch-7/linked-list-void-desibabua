@@ -281,3 +281,40 @@ void test_remove_at(void)
   
   clear_list(list);
 }
+
+void test_remove_first_occurrance(void)
+{
+  describe("remove_first_occurrance");
+
+  List_ptr list = create_list();
+
+  Element element_1 = malloc(sizeof(int));
+  *(int *)element_1 = 4;
+  Element element_2 = malloc(sizeof(int));
+  *(int *)element_2 = 3;
+  Element element_3 = malloc(sizeof(int));
+  *(int *)element_3 = 4;
+
+  Element non_changed_values[] = {element_1, element_2, element_3};
+  Element exp_values[] = {element_1, element_3};
+
+  add_to_list(list, element_1);
+  add_to_list(list, element_2);
+  add_to_list(list, element_3);
+
+  Element removed_element = remove_first_occurrence(list, element_2, &is_int_ptr_equal);
+  Status status = assert(list, 2, exp_values, Success, Success, &is_int_ptr_equal);
+  print_message(status, "should remove the first occurrance of element");
+
+  assert_is_eq_ptr(removed_element, element_2);
+  print_message(status, "should return element which was removed");
+
+  removed_element = remove_first_occurrence(list, element_2, &is_int_ptr_equal);
+  status = assert(list, 2, exp_values, Success, Success, &is_int_ptr_equal);
+  print_message(status, "should not remove if element is not there");
+
+  assert_is_eq_ptr(removed_element, NULL);
+  print_message(status, "should return null when not removed");
+
+  clear_list(list);
+}
