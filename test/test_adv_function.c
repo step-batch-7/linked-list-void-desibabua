@@ -134,6 +134,46 @@ void test_filter(void)
   clear_list(filtered_list);
 }
 
+Element sum(Element num1,Element num2)
+{
+  Element sum = malloc(sizeof(int));
+  *(int *)sum = *(int *)num1 + *(int *)num2;
+  return sum;
+}
+
+void test_reduce(void)
+{
+  describe("reduce_list");
+
+  List_ptr list = create_list();
+
+  Element element_1 = malloc(sizeof(int));
+  *(int *)element_1 = 4;
+  Element element_2 = malloc(sizeof(int));
+  *(int *)element_2 = 3;
+  Element element_3 = malloc(sizeof(int));
+  *(int *)element_3 = 5;
+
+  Element initial = malloc(sizeof(int));
+  *(int *)initial = 0;
+  Element expected = malloc(sizeof(int));
+  *(int *)expected = 12;
+
+  Element total = reduce(list, initial, &sum);
+  Status status = is_int_ptr_equal(total, initial);
+  print_message(status, "should return initial for an empty list");
+
+  add_to_list(list, element_1);
+  add_to_list(list, element_2);
+  add_to_list(list, element_3);
+
+  total = reduce(list, initial, &sum);
+  status = is_int_ptr_equal(total, total);
+  print_message(status, "should return total for an list with an reducer of sum function");
+
+  clear_list(list);
+}
+
 void increment(Element element)
 {
   *(int *)element += 1;

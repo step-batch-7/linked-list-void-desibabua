@@ -23,6 +23,7 @@ void test_reverse_list(void);
 
 void test_map(void);
 void test_filter(void);
+void test_reduce(void);
 void test_for_each(void);
 
 #endif
