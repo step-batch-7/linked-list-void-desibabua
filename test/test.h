@@ -19,4 +19,6 @@ void test_remove_at(void);
 void test_remove_first_occurrance(void);
 void test_remove_all_occurrances(void);
 
+void test_reverse_list(void);
+
 #endif

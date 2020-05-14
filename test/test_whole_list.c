@@ -18,5 +18,7 @@ int main(void)
   test_remove_first_occurrance();
   test_remove_all_occurrances();
 
+  test_reverse_list();
+
   return 0;
 }

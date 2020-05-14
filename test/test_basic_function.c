@@ -1,7 +1,6 @@
 #include "assert.h"
 #include "../linkedlist.h"
 
-
 void test_create_list(void)
 {
   describe("create_list");
